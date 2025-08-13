@@ -1,20 +1,16 @@
 {
   "name": "C++ Practice DevContainer",
   "dockerFile": "Dockerfile",
-
   "settings": {
     "C_Cpp.default.compilerPath": "/usr/bin/clang++",
     "C_Cpp.default.intelliSenseMode": "linux-clang-x64",
     "C_Cpp.default.cppStandard": "c++17",
     "editor.formatOnSave": true
   },
-
   "extensions": [
     "ms-vscode.cpptools",
     "ms-vscode.cmake-tools",
-    "twxs.cmake",
     "ms-vscode.cpptools-extension-pack"
   ],
-
-  "postCreateCommand": "./scripts-for-sdlc-cicd-automation/build_and_test.sh"
+  "postCreateCommand": "./scripts/build_and_test.sh"
 }
