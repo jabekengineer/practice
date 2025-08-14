@@ -1,52 +1,64 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
-concept="${1:-hello}"
-shift || true
-
-# Allow per-concept expected output; default is a simple 'Hello' check
-case "$concept" in
-  hello) expected_regex='Hello, RISC-V World!' ;;
-  *)     expected_regex='PASS|Success|OK|Hello' ;;
-esac
-
-# Clean & build
-echo "🔧 Building concept: ${concept}"
-if make -q "${concept}" 2>/dev/null; then
-  : # target exists
-else
-  # fallback to a conventional build if your Makefile expects a var
-  make clean || true
-  make CONCEPT="${concept}"
+if [[ $# -ne 1 ]]; then
+  echo 'Usage: build-and-test.sh <concept>'
+  echo 'Example: build-and-test.sh load'
+  exit 1
 fi
 
-elf="build/${concept}.elf"
-[[ -f "$elf" ]] || { echo "❌ Expected ELF not found: $elf"; exit 1; }
+concept=$1
 
-# Run with a timeout so a non‑exiting program can't hang CI
-# -bios default gives you OpenSBI, which many demos expect
-echo "▶️  Running under QEMU (concept=${concept})…"
-rm -f "build/${concept}.log"
-set +e
-timeout 10s qemu-system-riscv32 \
-  -M virt -nographic -bios default -kernel "$elf" \
-  "$@" | tee "build/${concept}.log"
-rc=$?
-set -e
-
-if [[ $rc -eq 124 ]]; then
-  echo "⏱️  QEMU timed out (program may not be exiting)."
-  exit 124
+# Check if concept files exist
+if [[ ! -f "concepts/${concept}.s" ]]; then
+  echo "Error: concepts/${concept}.s not found"
+  exit 1
 fi
 
-# Basic assertion on output
-if grep -E -q "$expected_regex" "build/${concept}.log"; then
-  echo "✅ Output matched: /$expected_regex/"
+if [[ ! -f "rtl/${concept}.v" ]]; then
+  echo "Error: rtl/${concept}.v not found"
+  exit 1
+fi
+
+if [[ ! -f "sim/${concept}.c" ]]; then
+  echo "Error: sim/${concept}.c not found"
+  exit 1
+fi
+
+echo "Building and testing concept: ${concept}"
+
+# Verify tools
+echo "Checking tools..."
+qemu-system-riscv32 --version > /dev/null || { echo "qemu-system-riscv32 not found"; exit 1; }
+riscv64-unknown-elf-gcc --version > /dev/null || { echo "riscv64-unknown-elf-gcc not found"; exit 1; }
+verilator --version > /dev/null || { echo "verilator not found"; exit 1; }
+
+# Clean and build
+echo "Building..."
+make clean
+make CONCEPT=$concept all
+
+# RunTest QEMU (with timeout)
+echo "Running QEMU..."
+timeout 5s make CONCEPT=$concept run-qemu > build/${concept}.qemu.out 2>&1 &
+
+# Run simulator
+echo "Running simulator..."
+make CONCEPT=$concept sim > build/${concept}.sim.out 2>&1
+
+# Rest simulator results
+echo "Running tests..."
+tests/$concept.qemu.sh > build/${concept}.qemu.out 2>&1 &
+
+sleep 2
+
+emu_result=$(grep -oP 'TEST_RESULT: \K\w+' build/${concept}.qemu.out)
+sim_result=$(grep -oP 'TEST_RESULT: \K\w+' build/${concept}.sim.out)
+if [[ "$emu_result" == "PASS" && "$sim_result" == "PASS" ]]; then
+  echo "All tests passed!"
   exit 0
 else
-  echo "❌ Output did not match: /$expected_regex/"
-  echo "----- BEGIN OUTPUT -----"
-  sed -n '1,200p' "build/${concept}.log"
-  echo "------ END OUTPUT ------"
-  exit 2
+  echo "Tests failed!"
+  echo "QEMU result: $emu_result"
+  echo "Simulator result: $sim_result"
+  exit 1
 fi

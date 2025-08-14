@@ -4,14 +4,18 @@
     "dockerfile": "Dockerfile",
     "context": "."
   },
-  "settings": {
-    "terminal.integrated.defaultProfile.linux": "bash",
-    "editor.formatOnSave": true
-  },
-  "extensions": [
-    "ms-vscode.makefile-tools",
-    "ms-vscode.cpptools",
-    "ms-vscode.hexeditor",
-    "ms-python.python"
-  ]
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.formatOnSave": true
+      },
+      "extensions": [
+        "ms-vscode.makefile-tools",
+        "ms-vscode.cpptools",
+        "ms-vscode.hexeditor",
+        "ms-python.python"
+      ]
+    }
+  }
 }

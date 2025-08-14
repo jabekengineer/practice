@@ -1,46 +1,74 @@
-# Toolchain
-CC  := riscv64-unknown-elf-gcc
-OBJDUMP := riscv64-unknown-elf-objdump
+# build and run one concept at a time.
+CONCEPT 	?= load
 
-# ISA/ABI
-MARCH := rv32i
-MABI  := ilp32
+# Build System
+BUILD 	:= build
+RISCV 	?= riscv64-unknown-elf
+GCC  	:= $(RISCV)-gcc
+OBJDUMP := $(RISCV)-objdump
+OBJCOPY := $(RISCV)-objcopy
 
-# Layout
-SRCS  := $(wildcard concepts/*.s)
-NAMES := $(basename $(notdir $(SRCS)))
-BUILDDIR := build
+# inputs
+ASM := concepts/$(CONCEPT).s
+OBJ := $(BUILD)/$(CONCEPT).o
+SIM := sim/$(CONCEPT).c
+RTL := rtl/$(CONCEPT).v
 
-ELFS := $(addprefix $(BUILDDIR)/,$(addsuffix .elf,$(NAMES)))
-OBJS := $(addprefix $(BUILDDIR)/,$(addsuffix .o,$(NAMES)))
-DISS := $(addprefix $(BUILDDIR)/,$(addsuffix .dis,$(NAMES)))
+# outputs
+ELF_QEMU    := $(BUILD)/$(CONCEPT)-qemu.elf
+ELF_SIM     := $(BUILD)/$(CONCEPT)-sim.elf
 
-.PHONY: all clean run dis test
+# QEMU run
+QEMU 		?= qemu-system-riscv32
+QEMU_FLAGS  ?= -machine virt -nographic -bios none
 
-all: $(ELFS) $(DISS)
+# Create build directory
+$(BUILD):
+	mkdir -p $@
 
-$(BUILDDIR):
-	@mkdir -p $@
+.PHONY: all
+all: $(ELF_QEMU) disasm
 
-# Assemble each concepts/<name>.s to build/<name>.o
-$(BUILDDIR)/%.o: concepts/%.s | $(BUILDDIR)
-	$(CC) -c -march=$(MARCH) -mabi=$(MABI) -nostdlib -o $@ $<
+COMPILE_FLAGS := -march=rv32i -mabi=ilp32 -nostartfiles -nostdlib -g -O0
+$(OBJ): $(ASM) | $(BUILD)
+	$(GCC) -c $(COMPILE_FLAGS) -o $@ $<
 
-# Link to ELF using our bare‑metal linker script
-$(BUILDDIR)/%.elf: $(BUILDDIR)/%.o linker.ld
-	$(CC) -nostartfiles -nostdlib -march=$(MARCH) -mabi=$(MABI) \
-	      -T linker.ld -Wl,--build-id=none -o $@ $<
+LINK_FLAGS := -Wl,--build-id=none -Wl,-Map,$(BUILD)/$(CONCEPT).map
 
-# Disassembly for inspection
-$(BUILDDIR)/%.dis: $(BUILDDIR)/%.elf
-	$(OBJDUMP) -D -M no-aliases,numeric $< > $@
+$(ELF_QEMU): $(OBJ) linker_virt.ld
+	$(GCC) $(COMPILE_FLAGS) $(LINK_FLAGS) -T linker_virt.ld -o $@ $(OBJ)
 
-# Run one concept: make run NAME=hello
-run: $(BUILDDIR)/$(NAME).elf
-	qemu-system-riscv32 -machine virt -nographic -bios none \
-	    -kernel $(BUILDDIR)/$(NAME).elf
+$(ELF_SIM): $(OBJ) linker_sim.ld
+	$(GCC) $(COMPILE_FLAGS) $(LINK_FLAGS) -T linker_sim.ld  -o $@ $(OBJ)
 
-dis: $(DISS)
+# ---- disassembly (of QEMU ELF) ----
+.PHONY: disasm
+disasm: $(ELF_QEMU)
+	$(OBJDUMP) -d -M no-aliases,numeric $< > $(BUILD)/$(CONCEPT).qemu.dis
+	@echo "QEMU Disassembly: $(BUILD)/$(CONCEPT).qemu.dis"
 
+# ---- run in QEMU ----
+.PHONY: run-qemu
+run-qemu: $(ELF_QEMU)
+	$(QEMU) $(QEMU_FLAGS) -kernel $<
+
+# ---- verilator sim ----
+VERILATOR ?= verilator
+SIM_EXE := $(BUILD)/$(CONCEPT)-sim
+
+.PHONY: sim
+sim: $(ELF_SIM) | $(BUILD)
+	verilator -cc $(RTL) --exe $(SIM) \
+		-CFLAGS "-O2 -std=c++17" -o $(notdir $(SIM_EXE))
+	$(MAKE) -C obj_dir -f V$(CONCEPT).mk
+	cp obj_dir/$(notdir $(SIM_EXE)) $(SIM_EXE)
+	$(SIM_EXE)
+
+# ---- convenience: run both under test script ----
+.PHONY: test
+test:
+	./scripts/build-and-test.sh $(CONCEPT)
+
+.PHONY: clean
 clean:
-	rm -rf $(BUILDDIR)
+	rm -rf $(BUILD) obj_dir *.vcd
