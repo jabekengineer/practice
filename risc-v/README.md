@@ -17,10 +17,12 @@ ctrl+a + x to exit running qemu.
 2. Create minimal verilog model in rtl/<concept>.v
 3. Create verilator simulation + test harness in sim/<concept>.c
 4. Write emulator tests in tests/<concept>.qemu.sh
-5. Pass concept name to builder/runner `/workspaces/practice/risc-v/scripts/build-and-test.sh load`
 
-## Debug tools
+
+## Verify the program works against qemu target
 
 1. Read dissassembly output by `objdump -d build/load-qemu.elf`
 2. Read symbol/section output by `readelf -a build/load-qemu.elf`
 3. Read memory layout output by `objdump -h build/load-qemu.elf`
+
+## Verify program runs correctly in simulator
