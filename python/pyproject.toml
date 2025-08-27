@@ -1,0 +1,13 @@
+[project]
+name = "python_practice"
+version = "2025.08.27"
+requires-python = ">=3.12.11"
+
+[project.scripts]
+lis = "dynamic_programming:lis"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.4.1",
+    "pytest-cov"
+]

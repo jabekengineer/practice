@@ -1,0 +1,10 @@
+README.md
+pyproject.toml
+concepts/dp/lis.py
+python_practice.egg-info/PKG-INFO
+python_practice.egg-info/SOURCES.txt
+python_practice.egg-info/dependency_links.txt
+python_practice.egg-info/entry_points.txt
+python_practice.egg-info/requires.txt
+python_practice.egg-info/top_level.txt
+tests/test_lis.py

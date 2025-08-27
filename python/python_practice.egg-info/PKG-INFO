@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: python_practice
+Version: 2025.8.27
+Requires-Python: >=3.12.11
+Provides-Extra: dev
+Requires-Dist: pytest>=8.4.1; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"

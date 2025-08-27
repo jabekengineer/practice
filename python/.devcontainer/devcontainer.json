@@ -1,0 +1,25 @@
+{
+    "name": "Python Algorithms DevContainer",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "..",
+        "target": "dev"
+    },
+    "workspaceFolder": "/workspace",
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/workspace,type=bind"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance"
+            ]
+        }
+    },
+    "remoteEnv": {
+        "PYTHONPATH": "/workspace"
+    },
+    "containerUser": "jabekengineer",
+    "postCreateCommand": "pip install --upgrade pip && pip install -e .[dev] && chmod +x scripts/*"
+}

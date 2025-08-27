@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "target": "es2024",
+        "module": "NodeNext",
+        "moduleResolution": "nodenext",
+        "strict": true,
+        "types": [null]
+    },
+    "include": ["concepts", "tests"]
+}
