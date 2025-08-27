@@ -33,6 +33,9 @@ mkdir scripts
 touch scripts/build-and-test.sh
 mkdir tests
 touch tests/single-concept-test.file
-touch StyleGuide.md
+mkdir .devcontainer
+touch .devcontainer/devcontainer.json
+touch .devcontainer/Dockerfile
+touch README.md
 tree "$DIR"
 echo "All done! ✌️"

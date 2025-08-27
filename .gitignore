@@ -1,1 +1,3 @@
 cpp/build/
+typescript/node_modules/
+python/.pytest_cache/
