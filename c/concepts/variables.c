@@ -1,0 +1,94 @@
+/*
+ * Basic Variables and Data Types in C
+ * 
+ * This file demonstrates fundamental C concepts:
+ * - Variable declarations and initialization
+ * - Basic data types (int, float, double, char)
+ * - Constants and literals
+ * - Basic arithmetic operations
+ * - Type casting
+ */
+
+#include "variables.h"
+#include <stdio.h>
+#include <limits.h>
+#include <float.h>
+
+// Global constant
+const int MAX_STUDENTS = 100;
+
+// Function to demonstrate basic variable operations
+int add_integers(int a, int b) {
+    return a + b;
+}
+
+// Function to demonstrate floating-point operations
+double calculate_average(double sum, int count) {
+    if (count == 0) {
+        return 0.0;
+    }
+    return sum / count;
+}
+
+// Function to demonstrate character operations
+char to_uppercase(char c) {
+    if (c >= 'a' && c <= 'z') {
+        return c - 'a' + 'A';
+    }
+    return c;
+}
+
+// Function to demonstrate type casting
+int double_to_int(double value) {
+    return (int)value;  // Explicit cast
+}
+
+// Function to demonstrate various data type sizes
+void print_type_sizes(void) {
+    printf("Data Type Sizes:\n");
+    printf("char: %zu bytes\n", sizeof(char));
+    printf("int: %zu bytes\n", sizeof(int));
+    printf("float: %zu bytes\n", sizeof(float));
+    printf("double: %zu bytes\n", sizeof(double));
+    printf("long: %zu bytes\n", sizeof(long));
+    printf("long long: %zu bytes\n", sizeof(long long));
+}
+
+// Function to demonstrate variable scoping
+int demonstrate_scope(void) {
+    int local_var = 42;  // Local variable
+    
+    {
+        int block_var = 24;  // Block scope variable
+        local_var += block_var;
+    }
+    
+    // block_var is not accessible here
+    return local_var;
+}
+
+// Function to demonstrate constants vs variables
+void demonstrate_constants(void) {
+    // Variables (can be modified)
+    int variable = 10;
+    variable = 20;  // This is allowed
+    
+    // Constants (cannot be modified)
+    const int constant = 30;
+    // constant = 40;  // This would cause a compilation error
+    
+    printf("Variable: %d, Constant: %d\n", variable, constant);
+}
+
+// Function to demonstrate arithmetic operations
+arithmetic_result_t perform_arithmetic(int a, int b) {
+    arithmetic_result_t result;
+    
+    result.sum = a + b;
+    result.difference = a - b;
+    result.product = a * b;
+    result.quotient = (b != 0) ? (double)a / b : 0.0;
+    result.remainder = (b != 0) ? a % b : 0;
+    
+    return result;
+}

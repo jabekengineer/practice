@@ -1,0 +1,206 @@
+/*
+ * Test file for variables and data types concept
+ * 
+ * This file contains comprehensive tests for all functions
+ * declared in variables.h and implemented in variables.c
+ */
+
+#include <assert.h>
+#include <stdio.h>
+#include <math.h>
+#include "variables.h"
+
+// Test basic integer addition
+void test_add_integers(void) {
+    printf("Testing add_integers...\n");
+    
+    // Test positive numbers
+    assert(add_integers(5, 3) == 8);
+    assert(add_integers(10, 20) == 30);
+    
+    // Test with zero
+    assert(add_integers(0, 5) == 5);
+    assert(add_integers(5, 0) == 5);
+    assert(add_integers(0, 0) == 0);
+    
+    // Test negative numbers
+    assert(add_integers(-5, 3) == -2);
+    assert(add_integers(5, -3) == 2);
+    assert(add_integers(-5, -3) == -8);
+    
+    printf("✓ add_integers tests passed\n");
+}
+
+// Test average calculation
+void test_calculate_average(void) {
+    printf("Testing calculate_average...\n");
+    
+    // Test normal cases
+    double avg1 = calculate_average(10.0, 2);
+    assert(fabs(avg1 - 5.0) < 0.001);
+    
+    double avg2 = calculate_average(15.0, 3);
+    assert(fabs(avg2 - 5.0) < 0.001);
+    
+    double avg3 = calculate_average(7.5, 3);
+    assert(fabs(avg3 - 2.5) < 0.001);
+    
+    // Test edge case: division by zero
+    double avg4 = calculate_average(10.0, 0);
+    assert(fabs(avg4 - 0.0) < 0.001);
+    
+    printf("✓ calculate_average tests passed\n");
+}
+
+// Test character case conversion
+void test_to_uppercase(void) {
+    printf("Testing to_uppercase...\n");
+    
+    // Test lowercase to uppercase conversion
+    assert(to_uppercase('a') == 'A');
+    assert(to_uppercase('z') == 'Z');
+    assert(to_uppercase('m') == 'M');
+    
+    // Test that uppercase letters remain unchanged
+    assert(to_uppercase('A') == 'A');
+    assert(to_uppercase('Z') == 'Z');
+    assert(to_uppercase('M') == 'M');
+    
+    // Test that non-letter characters remain unchanged
+    assert(to_uppercase('1') == '1');
+    assert(to_uppercase('@') == '@');
+    assert(to_uppercase(' ') == ' ');
+    
+    printf("✓ to_uppercase tests passed\n");
+}
+
+// Test type casting
+void test_double_to_int(void) {
+    printf("Testing double_to_int...\n");
+    
+    // Test positive numbers
+    assert(double_to_int(3.14) == 3);
+    assert(double_to_int(5.99) == 5);
+    assert(double_to_int(10.0) == 10);
+    
+    // Test negative numbers
+    assert(double_to_int(-3.14) == -3);
+    assert(double_to_int(-5.99) == -5);
+    
+    // Test zero
+    assert(double_to_int(0.0) == 0);
+    assert(double_to_int(0.99) == 0);
+    
+    printf("✓ double_to_int tests passed\n");
+}
+
+// Test scope demonstration function
+void test_demonstrate_scope(void) {
+    printf("Testing demonstrate_scope...\n");
+    
+    // The function should return 42 + 24 = 66
+    int result = demonstrate_scope();
+    assert(result == 66);
+    
+    printf("✓ demonstrate_scope tests passed\n");
+}
+
+// Test arithmetic operations
+void test_perform_arithmetic(void) {
+    printf("Testing perform_arithmetic...\n");
+    
+    // Test with positive numbers
+    arithmetic_result_t result1 = perform_arithmetic(10, 3);
+    assert(result1.sum == 13);
+    assert(result1.difference == 7);
+    assert(result1.product == 30);
+    assert(fabs(result1.quotient - 3.333333) < 0.000001);
+    assert(result1.remainder == 1);
+    
+    // Test with negative numbers
+    arithmetic_result_t result2 = perform_arithmetic(-10, 3);
+    assert(result2.sum == -7);
+    assert(result2.difference == -13);
+    assert(result2.product == -30);
+    assert(fabs(result2.quotient - (-3.333333)) < 0.000001);
+    assert(result2.remainder == -1);
+    
+    // Test division by zero handling
+    arithmetic_result_t result3 = perform_arithmetic(10, 0);
+    assert(result3.sum == 10);
+    assert(result3.difference == 10);
+    assert(result3.product == 0);
+    assert(result3.quotient == 0.0);
+    assert(result3.remainder == 0);
+    
+    printf("✓ perform_arithmetic tests passed\n");
+}
+
+// Test global constant access
+void test_global_constant(void) {
+    printf("Testing global constant access...\n");
+    
+    // Test that we can access the global constant
+    assert(MAX_STUDENTS == 100);
+    
+    printf("✓ global constant tests passed\n");
+}
+
+// Test that doesn't cause output but verifies compilation
+void test_print_type_sizes(void) {
+    printf("Testing print_type_sizes...\n");
+    
+    // This function prints to stdout, so we just call it
+    // to ensure it compiles and runs without crashing
+    printf("Type sizes output:\n");
+    print_type_sizes();
+    
+    printf("✓ print_type_sizes tests passed\n");
+}
+
+// Test constants demonstration
+void test_demonstrate_constants(void) {
+    printf("Testing demonstrate_constants...\n");
+    
+    // This function prints to stdout, so we just call it
+    // to ensure it compiles and runs without crashing
+    printf("Constants demonstration output:\n");
+    demonstrate_constants();
+    
+    printf("✓ demonstrate_constants tests passed\n");
+}
+
+// Main test runner
+int main(void) {
+    printf("=== Running Variables and Data Types Tests ===\n\n");
+    
+    test_add_integers();
+    printf("\n");
+    
+    test_calculate_average();
+    printf("\n");
+    
+    test_to_uppercase();
+    printf("\n");
+    
+    test_double_to_int();
+    printf("\n");
+    
+    test_demonstrate_scope();
+    printf("\n");
+    
+    test_perform_arithmetic();
+    printf("\n");
+    
+    test_global_constant();
+    printf("\n");
+    
+    test_print_type_sizes();
+    printf("\n");
+    
+    test_demonstrate_constants();
+    printf("\n");
+    
+    printf("=== All Variables and Data Types Tests Passed! ===\n");
+    return 0;
+}
