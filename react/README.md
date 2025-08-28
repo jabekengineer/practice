@@ -30,12 +30,14 @@ npm run build   # Build for production
 ### Docker Usage
 
 #### Development Container
+
 ```bash
 docker build -t react-practice:dev --target dev .
 docker run -it -p 5173:5173 -v $(pwd):/workspace react-practice:dev
 ```
 
 #### Production Runtime
+
 ```bash
 docker build -t react-practice:runtime --target runtime .
 docker run -p 80:80 react-practice:runtime
@@ -50,6 +52,7 @@ docker run -p 80:80 react-practice:runtime
 ## Testing
 
 Using Vitest with React Testing Library:
+
 - Unit tests for components
 - Integration tests for user interactions
 - Test UI available at `npm run test:ui`
