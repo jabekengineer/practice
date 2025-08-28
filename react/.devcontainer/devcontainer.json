@@ -1,0 +1,47 @@
+{
+  "name": "React Practice DevContainer",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "target": "dev"
+  },
+  "workspaceFolder": "/workspace",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind"
+  ],
+  "forwardPorts": [5173, 51204],
+  "portsAttributes": {
+    "5173": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "notify"
+    },
+    "51204": {
+      "label": "Vitest UI",
+      "onAutoForward": "silent"
+    }
+  },
+  "remoteEnv": {
+    "NODE_ENV": "development"
+  },
+  "postCreateCommand": "npm install",
+  "remoteUser": "node",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "typescript.preferences.includePackageJsonAutoImports": "auto",
+        "typescript.updateImportsOnFileMove.enabled": "always",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        }
+      },
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "bradlc.vscode-tailwindcss",
+        "ms-vscode.vscode-typescript-next",
+        "vitest.explorer"
+      ]
+    }
+  }
+}
