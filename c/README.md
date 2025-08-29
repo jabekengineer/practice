@@ -13,7 +13,7 @@ A streamlined C development environment using CMake/CTest for professional C pro
 
 ## 📁 Project Structure
 
-```
+```c
 c/
 ├── .devcontainer/              # Development container
 ├── concepts/                   # C implementations
@@ -32,6 +32,7 @@ c/
 ### 1. Develop C Concepts (Dev Container)
 
 **Open Development Environment:**
+
 ```bash
 # In VS Code: Command Palette → "Dev Containers: Reopen in Container"
 # Or manually:
@@ -39,11 +40,13 @@ docker-compose run --rm dev
 ```
 
 **Create New Concept:**
+
 1. Add implementation: `concepts/new_concept.c`
 2. Add header (if needed): `concepts/new_concept.h`
 3. Add tests: `tests/test_new_concept.c`
 
 **Test During Development:**
+
 ```bash
 # Test all concepts
 ./scripts/build-and-test.sh
@@ -61,6 +64,7 @@ docker-compose run --rm dev
 ### 2. Run Clean Demos
 
 **Quick Demo Run:**
+
 ```bash
 # Run all tests in clean environment
 docker-compose run --rm demo ./scripts/build-and-test.sh
@@ -70,6 +74,7 @@ docker-compose run --rm demo ./scripts/build-and-test.sh variables
 ```
 
 **Automated Testing:**
+
 ```bash
 # Runs tests and exits
 docker-compose run --rm test
@@ -78,6 +83,7 @@ docker-compose run --rm test
 ## 🛠 Build Systems
 
 ### CMake/CTest (Default - Recommended)
+
 ```bash
 ./scripts/build-and-test.sh                # All concepts
 ./scripts/build-and-test.sh variables      # Specific concept
@@ -85,13 +91,17 @@ docker-compose run --rm test
 ./scripts/build-and-test.sh --coverage     # With code coverage
 ```
 
-### Direct Compilation (Simple Mode)
+### Direct Compilation
+
+(Simple Mode)
+
 ```bash
 ./scripts/build-and-test.sh --direct       # Simple compilation
 ./scripts/build-and-test.sh --direct variables
 ```
 
 ### Manual CMake
+
 ```bash
 mkdir -p build/cmake && cd build/cmake
 cmake ../..
@@ -102,10 +112,12 @@ ctest --output-on-failure --verbose
 ## 📝 Coding Standards
 
 ### File Naming
+
 - **Concepts**: `concept_name.c` and `concept_name.h`
 - **Tests**: `test_concept_name.c`
 
 ### Test Structure
+
 ```c
 #include <assert.h>
 #include <stdio.h>
@@ -127,6 +139,7 @@ int main(void) {
 ## � Debugging
 
 ### Using GDB in Dev Container
+
 ```bash
 # Compile with debug symbols (automatic with build script)
 ./scripts/build-and-test.sh variables
@@ -136,6 +149,7 @@ gdb build/cmake/test_variables
 ```
 
 ### Memory Checking
+
 ```bash
 # Automatic Valgrind integration
 ./scripts/build-and-test.sh --memcheck
@@ -144,7 +158,9 @@ gdb build/cmake/test_variables
 ## 🎯 Concept Examples
 
 Each concept should demonstrate:
-1. **Core C Feature**: Variables, pointers, arrays, structs, etc.
+
+1. **Core C Feature**:
+Variables, pointers, arrays, structs, etc.
 2. **Practical Usage**: Real-world applications
 3. **Edge Cases**: Error handling and boundary conditions
 4. **Best Practices**: Clean, idiomatic C code
@@ -152,6 +168,7 @@ Each concept should demonstrate:
 ## 📚 Learning Path
 
 Recommended concept order:
+
 1. **variables** - Data types, operators, constants
 2. **functions** - Declaration, definition, scope
 3. **arrays** - Static arrays, multidimensional

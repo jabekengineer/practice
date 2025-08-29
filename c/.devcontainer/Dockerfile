@@ -1,5 +1,5 @@
 # Multi-stage Dockerfile for C development and demos
-FROM ubuntu:22.04 as base
+FROM ubuntu:22.04 AS base
 
 # Avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Development stage with full toolchain
-FROM base as development
+FROM base AS development
 
 # Install additional development tools
 RUN apt-get update && apt-get install -y \
@@ -50,7 +50,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
 USER $USERNAME
 
 # Demo stage - minimal for running concepts
-FROM base as demo
+FROM base AS demo
 
 # Set working directory and copy source
 WORKDIR /workspace
