@@ -20,19 +20,42 @@ psql/
 
 ## Quick Start
 
+### Option 1: Using Docker Compose (Recommended)
+
 1. **Build the containers:**
+
    ```bash
    docker compose build
    ```
 
 2. **Run a concept demo:**
+
    ```bash
    docker compose run --rm demo hello
    ```
 
 3. **Start development environment:**
+
    ```bash
    docker compose up dev -d
+   ```
+
+### Option 2: Using Dev Container
+
+1. **Open in VS Code Dev Container**
+   - Open the folder in VS Code
+   - Click "Reopen in Container" when prompted
+
+2. **Start PostgreSQL and setup database:**
+
+   ```bash
+   ./scripts/start-postgres.sh
+   ```
+
+3. **In another terminal, run demos:**
+
+   ```bash
+   ./scripts/demo-devcontainer.sh hello
    ```
 
 ## Usage

@@ -2,15 +2,14 @@
     "name": "PostgreSQL Development Environment",
     "build": {
         "dockerfile": "Dockerfile",
-        "context": "..",
-        "target": "development"
+        "context": ".."
     },
     
     // Use 'forwardPorts' to make PostgreSQL accessible
     "forwardPorts": [5432],
     
     // Use 'postCreateCommand' to set up the environment
-    "postCreateCommand": "cd /workspace && chmod +x scripts/*.sh && ./scripts/setup-database.sh",
+    "postCreateCommand": "cd /workspace && chmod +x scripts/*.sh",
     
     // Connect as postgres user
     "remoteUser": "postgres",

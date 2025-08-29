@@ -38,6 +38,8 @@ services:
       - POSTGRES_DB=sql_practice
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - dev
     network_mode: "service:dev"
     entrypoint: ["bash", "/workspace/scripts/demo.sh"]
 

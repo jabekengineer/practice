@@ -1,6 +1,6 @@
 #!/bin/bash
-# Demo script for Docker Compose - runs a specific concept and its test
-# Usage: docker compose run --rm demo {concept_name}
+# Demo script for DevContainer - runs a specific concept and its test
+# Usage: ./scripts/demo-devcontainer.sh {concept_name}
 
 set -e
 
@@ -23,12 +23,12 @@ fi
 
 echo "📖 Running concept: $CONCEPT"
 echo "----------------------------"
-psql -h localhost -U postgres -d sql_practice -f "/workspace/concepts/${CONCEPT}.sql"
+psql -U postgres -d sql_practice -f "/workspace/concepts/${CONCEPT}.sql"
 
 echo ""
 echo "🧪 Running tests for: $CONCEPT"
 echo "-------------------------------"
-psql -h localhost -U postgres -d sql_practice -f "/workspace/tests/test_${CONCEPT}.sql"
+psql -U postgres -d sql_practice -f "/workspace/tests/test_${CONCEPT}.sql"
 
 echo ""
 echo "✅ Demo completed successfully!"
