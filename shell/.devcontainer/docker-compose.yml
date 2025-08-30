@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  shell-practice:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../:/workspace:cached
+    command: sleep infinity
+    environment:
+      - SHELL=/bin/zsh
+      - TERM=xterm-256color
+    networks:
+      - shell-network
+
+  ubuntu-env:
+    image: ubuntu:22.04
+    volumes:
+      - ../:/workspace:cached
+    command: sleep infinity
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+      - SHELL=/bin/bash
+    networks:
+      - shell-network
+
+  debian-env:
+    image: debian:12-slim
+    volumes:
+      - ../:/workspace:cached
+    command: sleep infinity
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+      - SHELL=/bin/bash
+    networks:
+      - shell-network
+
+networks:
+  shell-network:
+    driver: bridge
