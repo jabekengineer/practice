@@ -1,0 +1,6 @@
+{
+    "name": "Make",
+    "build": {
+        "dockerfile": "Dockerfile"
+    }
+}
