@@ -1,64 +1,12 @@
 {
-    "name": "PostgreSQL Development Environment",
+    "name": "PostgreSQL practice",
     "build": {
-        "dockerfile": "Dockerfile",
-        "context": ".."
+        "dockerfile": "Dockerfile"
     },
-    
-    // Use 'forwardPorts' to make PostgreSQL accessible
-    "forwardPorts": [5432],
-    
-    // Use 'postCreateCommand' to set up the environment
-    "postCreateCommand": "cd /workspace && chmod +x scripts/*.sh",
-    
-    // Connect as postgres user
-    "remoteUser": "postgres",
-    
-    // Mount the workspace
-    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
-    "workspaceFolder": "/workspace",
-    
-    // Configure tool-specific properties
-    "customizations": {
-        "vscode": {
-            "settings": {
-                "sqltools.connections": [
-                    {
-                        "name": "PostgreSQL Local",
-                        "driver": "PostgreSQL",
-                        "server": "localhost",
-                        "port": 5432,
-                        "database": "sql_practice",
-                        "username": "postgres",
-                        "password": "postgres"
-                    }
-                ],
-                "files.associations": {
-                    "*.sql": "sql",
-                    "*.psql": "sql"
-                }
-            },
-            "extensions": [
-                "ms-vscode.vscode-json",
-                "mtxr.sqltools",
-                "mtxr.sqltools-driver-pg",
-                "bradymholt.pgformatter",
-                "ms-python.python",
-                "ms-python.debugpy"
-            ]
-        }
-    },
-    
-    // Features to add to the dev container
-    "features": {
-        "ghcr.io/devcontainers/features/git:1": {}
-    },
-    
-    // Environment variables
     "containerEnv": {
-        "POSTGRES_DB": "sql_practice",
-        "POSTGRES_USER": "postgres",
         "POSTGRES_PASSWORD": "postgres",
         "PGDATA": "/var/lib/postgresql/data"
-    }
+    },
+    "remoteUser": "postgres",
+    "postCreateCommand": "chmod +x scripts/* && scripts/setup.sh"
 }
