@@ -1,9 +1,10 @@
 [project]
 name = "python_practice"
-version = "2025.08.27"
+version = "2025.09.10"
 requires-python = ">=3.13.7"
 
 [project.scripts]
+fib = "concepts.dynamic_programming.fibonacci:main"
 lis = "concepts.dynamic_programming.dupe_lis:main"
 
 [project.optional-dependencies]

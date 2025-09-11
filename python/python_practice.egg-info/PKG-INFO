@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: python_practice
-Version: 2025.8.27
+Version: 2025.9.10
 Requires-Python: >=3.13.7
 Provides-Extra: dev
 Requires-Dist: pytest>=8.4.1; extra == "dev"

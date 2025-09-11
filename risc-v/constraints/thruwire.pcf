@@ -1,0 +1,4 @@
+# ICEBreaker: User button Pin10 + main section led Pin37
+# set_io <net> <pin>
+set_io USER_BTN 10 # User Button Pin 10
+set_io GRN_LED 37 # Main section Green LED Pin 37

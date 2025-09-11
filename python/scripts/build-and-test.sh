@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd ../tests && pytest -v
+cd /workspace && pytest tests/ -v

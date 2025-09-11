@@ -1,2 +1,3 @@
 [console_scripts]
 lis = concepts.dynamic_programming.dupe_lis:main
+fib = concepts.dynamic_programming.fibonacci:main
