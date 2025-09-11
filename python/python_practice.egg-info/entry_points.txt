@@ -1,2 +1,2 @@
 [console_scripts]
-lis = dynamic_programming:lis
+lis = concepts.dynamic_programming.dupe_lis:main

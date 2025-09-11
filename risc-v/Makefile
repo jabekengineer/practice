@@ -72,3 +72,9 @@ test:
 .PHONY: clean
 clean:
 	rm -rf $(BUILD) obj_dir *.vcd
+
+one := 1
+two := 2 $(one)
+two += $(two)
+toy:
+	echo $(two)

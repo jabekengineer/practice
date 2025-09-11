@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/bin/gcc"
+                "/usr/share/verilator/include/**",
+                "/usr/include/c++/13/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

@@ -45,7 +45,7 @@ timeout 5s make CONCEPT=$concept run-qemu > build/${concept}.qemu.out 2>&1 &
 echo "Running simulator..."
 make CONCEPT=$concept sim > build/${concept}.sim.out 2>&1
 
-# Rest simulator results
+# Test simulator results
 echo "Running tests..."
 tests/$concept.qemu.sh > build/${concept}.qemu.out 2>&1 &
 

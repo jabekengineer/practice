@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
-FROM python:3.12-slim AS base
-ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+FROM python:3.13.7 AS base
+ENV PYTHONDONTWRITEBYTECODE=0 PYTHONUNBUFFERED=1
 
 # ---- dev stage ----
 FROM base AS dev
