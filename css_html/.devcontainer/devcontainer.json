@@ -1,0 +1,6 @@
+{
+    "name": "css-html",
+    "build": {
+        "dockerfile": "Dockerfile"
+    }
+}
