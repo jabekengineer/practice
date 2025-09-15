@@ -1,1 +1,3 @@
-Does not run in a dev container.
+# Learning Strategy
+
+Practice using the docker CLI and making custom containers.
