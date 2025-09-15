@@ -7,5 +7,5 @@
         "strict": true,
         "types": [null]
     },
-    "include": ["concepts", "tests"]
+    "include": ["concepts"]
 }
