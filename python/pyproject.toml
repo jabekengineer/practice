@@ -5,7 +5,7 @@ requires-python = ">=3.13.7"
 
 [project.scripts]
 fib = "concepts.dynamic_programming.fibonacci:main"
-lis = "concepts.dynamic_programming.dupe_lis:main"
+lis = "concepts.dynamic_programming.lis:main"
 
 [project.optional-dependencies]
 dev = [
