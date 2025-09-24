@@ -1,0 +1,33 @@
+services:
+  risc-v-dev:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+      cache_from:
+        - risc-v-dev:latest
+      args:
+        BUILDKIT_INLINE_CACHE: "1"
+      platforms:
+        - linux/amd64
+    image: risc-v-dev:latest
+    volumes:
+      - ..:/workspaces/practice/risc-v:cached
+      - risc-v-tools-cache:/opt/oss-cad-suite:cached
+      - risc-v-riscv-cache:/opt/riscv:cached
+      - risc-v-build-cache:/tmp/build-cache:cached
+      - /dev:/dev
+    privileged: true
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+    working_dir: /workspaces/practice/risc-v
+    command: sleep infinity
+
+volumes:
+  risc-v-tools-cache:
+    driver: local
+  risc-v-riscv-cache:
+    driver: local
+  risc-v-build-cache:
+    driver: local

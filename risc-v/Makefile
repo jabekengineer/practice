@@ -69,9 +69,33 @@ sim: $(ELF_SIM) | $(BUILD)
 test:
 	./scripts/build-and-test.sh $(CONCEPT)
 
-.PHONY: clean
+# ---- FPGA synthesis ----
+FPGA_BUILD_DIR := build/fpga
+
+.PHONY: fpga-build
+fpga-build: | $(BUILD)
+	@echo "Building FPGA bitstream for $(CONCEPT)..."
+	./scripts/fpga-build.sh $(CONCEPT)
+
+.PHONY: fpga-program  
+fpga-program: fpga-build
+	@echo "Programming FPGA with $(CONCEPT)..."
+	./scripts/fpga-program.sh $(CONCEPT)
+
+.PHONY: fpga-clean
+fpga-clean:
+	rm -rf $(FPGA_BUILD_DIR)
+
+.PHONY: fpga-test
+fpga-test: fpga-program
+	@echo "🎯 Manual test instructions:"
+	@echo "1. Press the user button (PIN 10) on ICEBreaker"
+	@echo "2. Watch the green LED (PIN 37) - it should follow the button state"
+	@echo "3. Button pressed = LED on, Button released = LED off"
+
+# Update clean target
 clean:
-	rm -rf $(BUILD) obj_dir *.vcd
+	rm -rf $(BUILD) obj_dir *.vcd $(FPGA_BUILD_DIR)
 
 one := 1
 two := 2 $(one)

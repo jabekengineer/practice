@@ -1,0 +1,65 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "FPGA: Build Bitstream",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "fpga-build",
+                "CONCEPT=${input:concept}"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "FPGA: Program ICEBreaker",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "fpga-program",
+                "CONCEPT=${input:concept}"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "dependsOn": "FPGA: Build Bitstream"
+        },
+        {
+            "label": "FPGA: Test thruwire",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "fpga-test",
+                "CONCEPT=thruwire"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "concept",
+            "description": "FPGA concept to build",
+            "default": "thruwire",
+            "type": "promptString"
+        }
+    ]
+}

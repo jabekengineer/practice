@@ -1,9 +1,9 @@
 {
-  "name": "RISC-V ISA Practice",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "context": "."
-  },
+  "name": "RISC-V ISA Practice (Cached)",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "risc-v-dev",
+  "workspaceFolder": "/workspaces/practice/risc-v",
+  "shutdownAction": "stopCompose",
   "customizations": {
     "vscode": {
       "settings": {
@@ -16,6 +16,14 @@
         "ms-vscode.hexeditor",
         "ms-python.python"
       ]
+    }
+  },
+  "postCreateCommand": "echo 'Cached container ready! Tools available: yosys, nextpnr-ice40, iceprog, riscv64-unknown-elf-gcc'",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": false,
+      "installOhMyZsh": false,
+      "upgradePackages": false
     }
   }
 }
