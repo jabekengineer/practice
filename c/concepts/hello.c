@@ -1,7 +1,6 @@
 #include <stdio.h>
 
-int main()
+const char* get_greeting() 
 {
-    printf("hello\n");
-    return 0;
+    return "Hello, World";
 }
