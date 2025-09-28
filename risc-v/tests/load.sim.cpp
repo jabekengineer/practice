@@ -1,11 +1,14 @@
-#include "verilated.h"
+#include <verilated.h>
 #include "Vload.h"
 #include <iostream>
 #include <iomanip>
 
 int main(int argc, char **argv)
 {
+    // Initialize Verilator command line processing
     Verilated::commandArgs(argc, argv);
+
+    // Create the simulation top module
     Vload *top = new Vload;
 
     std::cout << "=== RISC-V Load Operation Simulation ===" << std::endl;
@@ -13,28 +16,29 @@ int main(int argc, char **argv)
     std::cout << "Expected result: x7 should contain 1337" << std::endl;
     std::cout << std::endl;
 
-    // Reset sequence
-    top->rst_n = 0;
-    top->clk = 0;
+    top->i_rst_n = 0; // active low reset
+    top->i_clk = 0;   // initial clock state
     top->eval();
 
+    // drive the clock for a few cycles with reset active to ensure all registers and state elements are properly initialized
     for (int i = 0; i < 4; i++)
     {
-        top->clk = !top->clk;
+        top->i_clk = !top->i_clk;
         top->eval();
     }
 
-    top->rst_n = 1;
+    top->i_rst_n = 1; // set reset signal to its inactive state
     std::cout << "Reset complete, starting simulation..." << std::endl;
 
     // Run simulation
     int cycles = 0;
     while (!top->finished && cycles < 100)
     {
-        top->clk = !top->clk;
+        top->i_clk = !top->i_clk;
+        // Evaluate model
         top->eval();
 
-        if (top->clk)
+        if (top->i_clk)
         { // Print on rising edge
             cycles++;
             std::cout << "Cycle " << std::dec << cycles << std::endl;

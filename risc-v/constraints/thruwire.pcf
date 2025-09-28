@@ -1,3 +1,0 @@
-set_io -nowarn sw1_btn      10
-set_io -nowarn ledg     11
-set_io -nowarn ledr     37

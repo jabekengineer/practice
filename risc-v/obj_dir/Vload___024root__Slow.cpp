@@ -17,7 +17,7 @@ Vload___024root::Vload___024root(Vload__Syms* symsp, const char* v__name)
 }
 
 void Vload___024root::__Vconfigure(bool first) {
-    if (false && first) {}  // Prevent unused
+    (void)first;  // Prevent unused variable warning
 }
 
 Vload___024root::~Vload___024root() {

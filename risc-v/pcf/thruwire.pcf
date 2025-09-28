@@ -1,0 +1,3 @@
+set_io sw1_btn  10
+set_io ledg     11
+set_io ledr     37

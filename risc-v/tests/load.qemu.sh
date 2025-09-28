@@ -86,6 +86,6 @@ if [[ "$X7" == "0x539" ]]; then
   echo "TEST_RESULT: PASS"
   exit 0
 else
-  echo "TEST_RESULT: PASS"
+  echo "TEST_RESULT: FAIL"
   exit 1
 fi

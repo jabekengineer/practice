@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "ostream": "c"
-    }
+        "ostream": "c",
+        "verilated.h": "c"
+    },
+    "C_Cpp.default.compilerPath": "/opt/riscv/bin/riscv64-unknown-elf-gcc"
 }

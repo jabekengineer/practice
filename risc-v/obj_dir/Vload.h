@@ -24,9 +24,10 @@ class alignas(VL_CACHE_LINE_BYTES) Vload VL_NOT_FINAL : public VerilatedModel {
     // PORTS
     // The application code writes and reads these signals to
     // propagate new values into/out from the Verilated model.
-    VL_IN8(&clk,0,0);
-    VL_IN8(&rst_n,0,0);
+    VL_IN8(&i_clk,0,0);
+    VL_IN8(&i_rst_n,0,0);
     VL_OUT8(&finished,0,0);
+    VL_OUT8(&led_done,0,0);
     VL_OUT(&result,31,0);
 
     // CELLS

@@ -5,7 +5,7 @@ set -e
 CONCEPT=${1:-thruwire}
 BUILD_DIR="build/fpga"
 RTL_DIR="rtl"
-CONSTRAINTS_DIR="constraints"
+CONSTRAINTS_DIR="pcf"
 
 echo "Building FPGA bitstream for: $CONCEPT"
 

@@ -14,7 +14,8 @@
         "ms-vscode.makefile-tools",
         "ms-vscode.cpptools",
         "ms-vscode.hexeditor",
-        "ms-python.python"
+        "ms-python.python",
+        "mshr-h.VerilogHDL"
       ]
     }
   },

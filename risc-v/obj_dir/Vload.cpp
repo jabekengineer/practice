@@ -9,9 +9,10 @@
 Vload::Vload(VerilatedContext* _vcontextp__, const char* _vcname__)
     : VerilatedModel{*_vcontextp__}
     , vlSymsp{new Vload__Syms(contextp(), _vcname__, this)}
-    , clk{vlSymsp->TOP.clk}
-    , rst_n{vlSymsp->TOP.rst_n}
+    , i_clk{vlSymsp->TOP.i_clk}
+    , i_rst_n{vlSymsp->TOP.i_rst_n}
     , finished{vlSymsp->TOP.finished}
+    , led_done{vlSymsp->TOP.led_done}
     , result{vlSymsp->TOP.result}
     , rootp{&(vlSymsp->TOP)}
 {
