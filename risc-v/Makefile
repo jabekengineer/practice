@@ -121,12 +121,23 @@ FPGA_BUILD_DIR := build/fpga
 .PHONY: fpga-build
 fpga-build: | $(BUILD)
 	@echo "Building FPGA bitstream for $(CONCEPT)..."
-	./scripts/fpga-build.sh $(CONCEPT)
+	@echo "Checking for $(CONCEPT) fpga build wrapper"
+	if [ -f rtl/$(CONCEPT)_wrapper.v ]; then \
+		echo "Found rtl/$(CONCEPT)_wrapper.v, using it for FPGA synthesis"; \
+		./scripts/fpga-build.sh $(CONCEPT)_wrapper; \
+	else \
+		echo "No rtl/$(CONCEPT)_wrapper.v found, using rtl/$(CONCEPT).v for FPGA synthesis"; \
+		./scripts/fpga-build.sh $(CONCEPT); \
+	fi
 
 .PHONY: fpga-program  
 fpga-program: fpga-build
 	@echo "Programming FPGA with $(CONCEPT)..."
-	./scripts/fpga-program.sh $(CONCEPT)
+	if [ -f rtl/$(CONCEPT)_wrapper.v ]; then \
+		./scripts/fpga-program.sh $(CONCEPT)_wrapper; \
+	else \
+		./scripts/fpga-program.sh $(CONCEPT); \
+	fi
 
 .PHONY: fpga-clean
 fpga-clean:

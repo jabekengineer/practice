@@ -14,6 +14,8 @@ void Vload___024root___eval_act(Vload___024root* vlSelf) {
 void Vload___024root___nba_sequent__TOP__0(Vload___024root* vlSelf);
 void Vload___024root___nba_sequent__TOP__1(Vload___024root* vlSelf);
 void Vload___024root___nba_sequent__TOP__2(Vload___024root* vlSelf);
+void Vload___024root___nba_sequent__TOP__3(Vload___024root* vlSelf);
+void Vload___024root___nba_sequent__TOP__4(Vload___024root* vlSelf);
 
 void Vload___024root___eval_nba(Vload___024root* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
@@ -29,6 +31,12 @@ void Vload___024root___eval_nba(Vload___024root* vlSelf) {
     if ((2ULL & vlSelf->__VnbaTriggered.word(0U))) {
         Vload___024root___nba_sequent__TOP__2(vlSelf);
     }
+    if ((1ULL & vlSelf->__VnbaTriggered.word(0U))) {
+        Vload___024root___nba_sequent__TOP__3(vlSelf);
+    }
+    if ((2ULL & vlSelf->__VnbaTriggered.word(0U))) {
+        Vload___024root___nba_sequent__TOP__4(vlSelf);
+    }
 }
 
 VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__0(Vload___024root* vlSelf) {
@@ -36,33 +44,28 @@ VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__0(Vload___024root* vlSelf
     Vload__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vload___024root___nba_sequent__TOP__0\n"); );
     // Body
+    vlSelf->__Vdly__load__DOT__imem_addr = vlSelf->load__DOT__imem_addr;
+    vlSelf->__Vdly__load__DOT__dmem_addr = vlSelf->load__DOT__dmem_addr;
     vlSelf->__Vdly__load__DOT__pc = vlSelf->load__DOT__pc;
     vlSelf->__Vdly__load__DOT__state = vlSelf->load__DOT__state;
-    vlSelf->__Vdlyvset__load__DOT__memory__v0 = 0U;
     vlSelf->__Vdlyvset__load__DOT__registers__v0 = 0U;
     vlSelf->__Vdlyvset__load__DOT__registers__v1 = 0U;
     vlSelf->__Vdlyvset__load__DOT__registers__v2 = 0U;
     vlSelf->__Vdlyvset__load__DOT__registers__v3 = 0U;
-    vlSelf->__Vdly__load__DOT__instruction = vlSelf->load__DOT__instruction;
 }
 
 VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__1(Vload___024root* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vload__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vload___024root___nba_sequent__TOP__1\n"); );
-    // Init
-    IData/*25:0*/ __Vdly__load__DOT__blink_counter;
-    __Vdly__load__DOT__blink_counter = 0;
     // Body
-    __Vdly__load__DOT__blink_counter = vlSelf->load__DOT__blink_counter;
-    __Vdly__load__DOT__blink_counter = (0x3ffffffU 
-                                        & ((IData)(1U) 
-                                           + vlSelf->load__DOT__blink_counter));
-    vlSelf->led_done = (1U & ((IData)(vlSelf->finished)
-                               ? (0x539U == vlSelf->result)
-                               : (vlSelf->load__DOT__blink_counter 
-                                  >> 0x14U)));
-    vlSelf->load__DOT__blink_counter = __Vdly__load__DOT__blink_counter;
+    vlSelf->__Vdlyvset__load__DOT__dmem__v0 = 0U;
+    if (vlSelf->load__DOT__dmem_we) {
+        vlSelf->__Vdlyvval__load__DOT__dmem__v0 = vlSelf->load__DOT__dmem_wdata;
+        vlSelf->__Vdlyvset__load__DOT__dmem__v0 = 1U;
+        vlSelf->__Vdlyvdim0__load__DOT__dmem__v0 = vlSelf->load__DOT__dmem_addr;
+    }
+    vlSelf->led_done = 0U;
 }
 
 VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__2(Vload___024root* vlSelf) {
@@ -72,10 +75,6 @@ VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__2(Vload___024root* vlSelf
     // Init
     IData/*31:0*/ load__DOT__i;
     load__DOT__i = 0;
-    SData/*9:0*/ __Vdlyvdim0__load__DOT__memory__v0;
-    __Vdlyvdim0__load__DOT__memory__v0 = 0;
-    IData/*31:0*/ __Vdlyvval__load__DOT__memory__v0;
-    __Vdlyvval__load__DOT__memory__v0 = 0;
     CData/*4:0*/ __Vdlyvdim0__load__DOT__registers__v0;
     __Vdlyvdim0__load__DOT__registers__v0 = 0;
     IData/*31:0*/ __Vdlyvval__load__DOT__registers__v0;
@@ -90,19 +89,32 @@ VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__2(Vload___024root* vlSelf
     __Vdlyvval__load__DOT__registers__v2 = 0;
     // Body
     if (vlSelf->i_rst_n) {
-        if (VL_UNLIKELY((0U == (IData)(vlSelf->load__DOT__state)))) {
-            VL_WRITEF_NX("Fetch: PC=0x%08x, Instr=0x%08x\n",0,
-                         32,vlSelf->load__DOT__pc,32,
-                         vlSelf->load__DOT__memory[
-                         (0x3ffU & (vlSelf->load__DOT__pc 
-                                    >> 2U))]);
-            vlSelf->__Vdly__load__DOT__instruction 
-                = vlSelf->load__DOT__memory[(0x3ffU 
-                                             & (vlSelf->load__DOT__pc 
-                                                >> 2U))];
-            vlSelf->__Vdly__load__DOT__state = 1U;
-        } else if (VL_LIKELY((1U == (IData)(vlSelf->load__DOT__state)))) {
-            if ((0x40U & (IData)(vlSelf->load__DOT__opcode))) {
+        vlSelf->load__DOT__dmem_we = 0U;
+        if ((4U & (IData)(vlSelf->load__DOT__state))) {
+            vlSelf->__Vdly__load__DOT__state = ((2U 
+                                                 & (IData)(vlSelf->load__DOT__state))
+                                                 ? 0U
+                                                 : 
+                                                ((1U 
+                                                  & (IData)(vlSelf->load__DOT__state))
+                                                  ? 0U
+                                                  : 4U));
+        } else if ((2U & (IData)(vlSelf->load__DOT__state))) {
+            if ((1U & (IData)(vlSelf->load__DOT__state))) {
+                vlSelf->__Vdly__load__DOT__pc = ((IData)(4U) 
+                                                 + vlSelf->load__DOT__pc);
+                if (VL_UNLIKELY((0U != (IData)(vlSelf->load__DOT__rd)))) {
+                    VL_WRITEF_NX("LW -> x%0# = 0x%08x\n",0,
+                                 5,vlSelf->load__DOT__rd,
+                                 32,vlSelf->load__DOT__dmem_rdata);
+                    __Vdlyvval__load__DOT__registers__v0 
+                        = vlSelf->load__DOT__dmem_rdata;
+                    vlSelf->__Vdlyvset__load__DOT__registers__v0 = 1U;
+                    __Vdlyvdim0__load__DOT__registers__v0 
+                        = vlSelf->load__DOT__rd;
+                }
+                vlSelf->__Vdly__load__DOT__state = 0U;
+            } else if ((0x40U & (IData)(vlSelf->load__DOT__opcode))) {
                 if (VL_LIKELY((0x20U & (IData)(vlSelf->load__DOT__opcode)))) {
                     if (VL_UNLIKELY((0x10U & (IData)(vlSelf->load__DOT__opcode)))) {
                         VL_WRITEF_NX("Unknown opcode: 0x%02x\n",0,
@@ -114,19 +126,26 @@ VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__2(Vload___024root* vlSelf
                         if (VL_LIKELY((4U & (IData)(vlSelf->load__DOT__opcode)))) {
                             if (VL_LIKELY((2U & (IData)(vlSelf->load__DOT__opcode)))) {
                                 if (VL_LIKELY((1U & (IData)(vlSelf->load__DOT__opcode)))) {
-                                    if (VL_UNLIKELY(
-                                                    (0x6fU 
-                                                     == vlSelf->load__DOT__instruction))) {
-                                        VL_WRITEF_NX("Program finished: x7 = %0#\n",0,
-                                                     32,
-                                                     vlSelf->load__DOT__registers
-                                                     [7U]);
+                                    if ((0x6fU == vlSelf->load__DOT__instruction)) {
                                         vlSelf->finished = 1U;
                                         vlSelf->result 
                                             = vlSelf->load__DOT__registers
                                             [7U];
+                                        vlSelf->__Vdly__load__DOT__state = 4U;
+                                        VL_WRITEF_NX("[HALT] Program finished: x7 = %0#, result = %0#\n",0,
+                                                     32,
+                                                     vlSelf->load__DOT__registers
+                                                     [7U],
+                                                     32,
+                                                     vlSelf->load__DOT__registers
+                                                     [7U]);
+                                    } else {
+                                        VL_WRITEF_NX("[JAL] Non-halt JAL instruction, continuing\n",0);
+                                        vlSelf->__Vdly__load__DOT__pc 
+                                            = ((IData)(4U) 
+                                               + vlSelf->load__DOT__pc);
+                                        vlSelf->__Vdly__load__DOT__state = 0U;
                                     }
-                                    vlSelf->__Vdly__load__DOT__state = 1U;
                                 } else {
                                     VL_WRITEF_NX("Unknown opcode: 0x%02x\n",0,
                                                  7,
@@ -189,24 +208,20 @@ VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__2(Vload___024root* vlSelf
                         vlSelf->__Vdly__load__DOT__pc 
                             = ((IData)(4U) + vlSelf->load__DOT__pc);
                         if (VL_UNLIKELY((2U == (IData)(vlSelf->load__DOT__funct3)))) {
+                            vlSelf->__Vdly__load__DOT__dmem_addr 
+                                = (0x3ffU & (vlSelf->load__DOT__sw_addr 
+                                             >> 2U));
+                            vlSelf->load__DOT__dmem_wdata 
+                                = vlSelf->load__DOT__registers
+                                [vlSelf->load__DOT__rs2];
+                            vlSelf->load__DOT__dmem_we = 1U;
                             VL_WRITEF_NX("SW x%0#, %0d(x%0#) -> Mem[0x%08x] = 0x%08x\n",0,
                                          5,vlSelf->load__DOT__rs2,
                                          32,vlSelf->load__DOT__s_imm,
                                          5,(IData)(vlSelf->load__DOT__rs1),
-                                         32,(vlSelf->load__DOT__registers
-                                             [vlSelf->load__DOT__rs1] 
-                                             + vlSelf->load__DOT__s_imm),
+                                         32,vlSelf->load__DOT__sw_addr,
                                          32,vlSelf->load__DOT__registers
                                          [vlSelf->load__DOT__rs2]);
-                            __Vdlyvval__load__DOT__memory__v0 
-                                = vlSelf->load__DOT__registers
-                                [vlSelf->load__DOT__rs2];
-                            vlSelf->__Vdlyvset__load__DOT__memory__v0 = 1U;
-                            __Vdlyvdim0__load__DOT__memory__v0 
-                                = (0x3ffU & ((vlSelf->load__DOT__registers
-                                              [vlSelf->load__DOT__rs1] 
-                                              + vlSelf->load__DOT__s_imm) 
-                                             >> 2U));
                         }
                         vlSelf->__Vdly__load__DOT__state = 0U;
                     } else {
@@ -234,11 +249,11 @@ VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__2(Vload___024root* vlSelf
                     if (VL_LIKELY((2U & (IData)(vlSelf->load__DOT__opcode)))) {
                         if (VL_LIKELY((1U & (IData)(vlSelf->load__DOT__opcode)))) {
                             if (VL_UNLIKELY((0U != (IData)(vlSelf->load__DOT__rd)))) {
-                                __Vdlyvval__load__DOT__registers__v0 
+                                __Vdlyvval__load__DOT__registers__v1 
                                     = (vlSelf->load__DOT__pc 
                                        + vlSelf->load__DOT__u_imm);
-                                vlSelf->__Vdlyvset__load__DOT__registers__v0 = 1U;
-                                __Vdlyvdim0__load__DOT__registers__v0 
+                                vlSelf->__Vdlyvset__load__DOT__registers__v1 = 1U;
+                                __Vdlyvdim0__load__DOT__registers__v1 
                                     = vlSelf->load__DOT__rd;
                                 VL_WRITEF_NX("AUIPC x%0#, 0x%05x -> x%0# = 0x%08x\n",0,
                                              5,vlSelf->load__DOT__rd,
@@ -269,12 +284,12 @@ VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__2(Vload___024root* vlSelf
                     if (VL_LIKELY((1U & (IData)(vlSelf->load__DOT__opcode)))) {
                         if (VL_UNLIKELY(((0U == (IData)(vlSelf->load__DOT__funct3)) 
                                          & (0U != (IData)(vlSelf->load__DOT__rd))))) {
-                            __Vdlyvval__load__DOT__registers__v1 
+                            __Vdlyvval__load__DOT__registers__v2 
                                 = (vlSelf->load__DOT__registers
                                    [vlSelf->load__DOT__rs1] 
                                    + vlSelf->load__DOT__i_imm);
-                            vlSelf->__Vdlyvset__load__DOT__registers__v1 = 1U;
-                            __Vdlyvdim0__load__DOT__registers__v1 
+                            vlSelf->__Vdlyvset__load__DOT__registers__v2 = 1U;
+                            __Vdlyvdim0__load__DOT__registers__v2 
                                 = vlSelf->load__DOT__rd;
                             VL_WRITEF_NX("ADDI x%0#, x%0#, %0# -> x%0# = 0x%08x\n",0,
                                          5,vlSelf->load__DOT__rd,
@@ -317,29 +332,20 @@ VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__2(Vload___024root* vlSelf
                 if (VL_LIKELY((1U & (IData)(vlSelf->load__DOT__opcode)))) {
                     if (VL_UNLIKELY(((2U == (IData)(vlSelf->load__DOT__funct3)) 
                                      & (0U != (IData)(vlSelf->load__DOT__rd))))) {
-                        __Vdlyvval__load__DOT__registers__v2 
-                            = vlSelf->load__DOT__memory
-                            [(0x3ffU & ((vlSelf->load__DOT__registers
-                                         [vlSelf->load__DOT__rs1] 
-                                         + vlSelf->load__DOT__i_imm) 
-                                        >> 2U))];
-                        vlSelf->__Vdlyvset__load__DOT__registers__v2 = 1U;
-                        __Vdlyvdim0__load__DOT__registers__v2 
-                            = vlSelf->load__DOT__rd;
-                        VL_WRITEF_NX("LW x%0#, %0d(x%0#) -> x%0# = 0x%08x\n",0,
+                        VL_WRITEF_NX("LW x%0#, %0d(x%0#) -> starting read from addr 0x%08x\n",0,
                                      5,vlSelf->load__DOT__rd,
                                      32,vlSelf->load__DOT__i_imm,
                                      5,(IData)(vlSelf->load__DOT__rs1),
-                                     5,vlSelf->load__DOT__rd,
-                                     32,vlSelf->load__DOT__memory
-                                     [(0x3ffU & ((vlSelf->load__DOT__registers
-                                                  [vlSelf->load__DOT__rs1] 
-                                                  + vlSelf->load__DOT__i_imm) 
-                                                 >> 2U))]);
+                                     32,vlSelf->load__DOT__lw_addr);
+                        vlSelf->__Vdly__load__DOT__dmem_addr 
+                            = (0x3ffU & (vlSelf->load__DOT__lw_addr 
+                                         >> 2U));
+                        vlSelf->__Vdly__load__DOT__state = 3U;
+                    } else {
+                        vlSelf->__Vdly__load__DOT__pc 
+                            = ((IData)(4U) + vlSelf->load__DOT__pc);
+                        vlSelf->__Vdly__load__DOT__state = 0U;
                     }
-                    vlSelf->__Vdly__load__DOT__pc = 
-                        ((IData)(4U) + vlSelf->load__DOT__pc);
-                    vlSelf->__Vdly__load__DOT__state = 0U;
                 } else {
                     VL_WRITEF_NX("Unknown opcode: 0x%02x\n",0,
                                  7,vlSelf->load__DOT__opcode);
@@ -354,9 +360,17 @@ VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__2(Vload___024root* vlSelf
                                                  + vlSelf->load__DOT__pc);
                 vlSelf->__Vdly__load__DOT__state = 0U;
             }
+        } else if ((1U & (IData)(vlSelf->load__DOT__state))) {
+            VL_WRITEF_NX("  Instruction: 0x%08x\n",0,
+                         32,vlSelf->load__DOT__imem_rdata);
+            vlSelf->load__DOT__instruction = vlSelf->load__DOT__imem_rdata;
+            vlSelf->__Vdly__load__DOT__state = 2U;
         } else {
-            VL_WRITEF_NX("Ignored state: 0x%02x\n",0,
-                         3,vlSelf->load__DOT__state);
+            vlSelf->__Vdly__load__DOT__imem_addr = 
+                (0x3ffU & (vlSelf->load__DOT__pc >> 2U));
+            vlSelf->__Vdly__load__DOT__state = 1U;
+            VL_WRITEF_NX("Fetch: PC=0x%08x\n",0,32,
+                         vlSelf->load__DOT__pc);
         }
     } else {
         vlSelf->__Vdly__load__DOT__pc = 0U;
@@ -364,14 +378,11 @@ VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__2(Vload___024root* vlSelf
         vlSelf->__Vdly__load__DOT__state = 0U;
         vlSelf->finished = 0U;
         vlSelf->result = 0U;
+        vlSelf->load__DOT__dmem_we = 0U;
         vlSelf->__Vdlyvset__load__DOT__registers__v3 = 1U;
     }
-    vlSelf->load__DOT__state = vlSelf->__Vdly__load__DOT__state;
     vlSelf->load__DOT__pc = vlSelf->__Vdly__load__DOT__pc;
-    if (vlSelf->__Vdlyvset__load__DOT__memory__v0) {
-        vlSelf->load__DOT__memory[__Vdlyvdim0__load__DOT__memory__v0] 
-            = __Vdlyvval__load__DOT__memory__v0;
-    }
+    vlSelf->load__DOT__state = vlSelf->__Vdly__load__DOT__state;
     if (vlSelf->__Vdlyvset__load__DOT__registers__v0) {
         vlSelf->load__DOT__registers[__Vdlyvdim0__load__DOT__registers__v0] 
             = __Vdlyvval__load__DOT__registers__v0;
@@ -418,18 +429,14 @@ VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__2(Vload___024root* vlSelf
         vlSelf->load__DOT__registers[0x1eU] = 0U;
         vlSelf->load__DOT__registers[0x1fU] = 0U;
     }
-    vlSelf->load__DOT__instruction = vlSelf->__Vdly__load__DOT__instruction;
+    vlSelf->debug_state = vlSelf->load__DOT__state;
+    vlSelf->load__DOT__rs1 = (0x1fU & (vlSelf->load__DOT__instruction 
+                                       >> 0xfU));
     vlSelf->load__DOT__opcode = (0x7fU & vlSelf->load__DOT__instruction);
     vlSelf->load__DOT__funct3 = (7U & (vlSelf->load__DOT__instruction 
                                        >> 0xcU));
     vlSelf->load__DOT__rd = (0x1fU & (vlSelf->load__DOT__instruction 
                                       >> 7U));
-    vlSelf->load__DOT__rs1 = (0x1fU & (vlSelf->load__DOT__instruction 
-                                       >> 0xfU));
-    vlSelf->load__DOT__i_imm = (((- (IData)((vlSelf->load__DOT__instruction 
-                                             >> 0x1fU))) 
-                                 << 0xcU) | (vlSelf->load__DOT__instruction 
-                                             >> 0x14U));
     vlSelf->load__DOT__u_imm = (0xfffff000U & vlSelf->load__DOT__instruction);
     vlSelf->load__DOT__rs2 = (0x1fU & (vlSelf->load__DOT__instruction 
                                        >> 0x14U));
@@ -441,6 +448,42 @@ VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__2(Vload___024root* vlSelf
                                              | (0x1fU 
                                                 & (vlSelf->load__DOT__instruction 
                                                    >> 7U))));
+    vlSelf->load__DOT__i_imm = (((- (IData)((vlSelf->load__DOT__instruction 
+                                             >> 0x1fU))) 
+                                 << 0xcU) | (vlSelf->load__DOT__instruction 
+                                             >> 0x14U));
+    vlSelf->load__DOT__sw_addr = (vlSelf->load__DOT__registers
+                                  [(0x1fU & (vlSelf->load__DOT__instruction 
+                                             >> 0xfU))] 
+                                  + vlSelf->load__DOT__s_imm);
+    vlSelf->load__DOT__lw_addr = (vlSelf->load__DOT__registers
+                                  [(0x1fU & (vlSelf->load__DOT__instruction 
+                                             >> 0xfU))] 
+                                  + vlSelf->load__DOT__i_imm);
+}
+
+VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__3(Vload___024root* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vload__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vload___024root___nba_sequent__TOP__3\n"); );
+    // Body
+    vlSelf->load__DOT__imem_rdata = vlSelf->load__DOT__imem
+        [vlSelf->load__DOT__imem_addr];
+    vlSelf->load__DOT__dmem_rdata = vlSelf->load__DOT__dmem
+        [vlSelf->load__DOT__dmem_addr];
+    if (vlSelf->__Vdlyvset__load__DOT__dmem__v0) {
+        vlSelf->load__DOT__dmem[vlSelf->__Vdlyvdim0__load__DOT__dmem__v0] 
+            = vlSelf->__Vdlyvval__load__DOT__dmem__v0;
+    }
+}
+
+VL_INLINE_OPT void Vload___024root___nba_sequent__TOP__4(Vload___024root* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vload__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vload___024root___nba_sequent__TOP__4\n"); );
+    // Body
+    vlSelf->load__DOT__imem_addr = vlSelf->__Vdly__load__DOT__imem_addr;
+    vlSelf->load__DOT__dmem_addr = vlSelf->__Vdly__load__DOT__dmem_addr;
 }
 
 void Vload___024root___eval_triggers__act(Vload___024root* vlSelf);

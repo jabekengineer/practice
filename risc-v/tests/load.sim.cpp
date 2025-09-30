@@ -1,5 +1,5 @@
 #include <verilated.h>
-#include "Vload.h"
+#include "Vload_wrapper.h"
 #include <iostream>
 #include <iomanip>
 
@@ -9,7 +9,7 @@ int main(int argc, char **argv)
     Verilated::commandArgs(argc, argv);
 
     // Create the simulation top module
-    Vload *top = new Vload;
+    Vload_wrapper *top = new Vload_wrapper;
 
     std::cout << "=== RISC-V Load Operation Simulation ===" << std::endl;
     std::cout << "Testing: li x31,1337; sw x31,0(x0); lw x7,0(x0)" << std::endl;

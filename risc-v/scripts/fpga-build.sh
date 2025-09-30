@@ -24,10 +24,21 @@ if [[ ! -f "$CONSTRAINTS_DIR/$CONCEPT.pcf" ]]; then
 fi
 
 echo "Step 1: Synthesis with Yosys..."
-yosys -p "
-    read_verilog $RTL_DIR/$CONCEPT.v;
-    synth_ice40 -top $CONCEPT -json $BUILD_DIR/$CONCEPT.json;
-"
+if [[ "$CONCEPT" == *"_wrapper" ]]; then
+    BASE_CONCEPT=${CONCEPT%_wrapper}
+    echo "Building wrapper - reading both $BASE_CONCEPT.v and $CONCEPT.v"
+    yosys -p "
+        read_verilog $RTL_DIR/$BASE_CONCEPT.v;
+        read_verilog $RTL_DIR/$CONCEPT.v;
+        synth_ice40 -top $CONCEPT -json $BUILD_DIR/$CONCEPT.json;
+    "
+else
+    echo "Building standalone module - reading $CONCEPT.v"
+    yosys -p "
+        read_verilog $RTL_DIR/$CONCEPT.v;
+        synth_ice40 -top $CONCEPT -json $BUILD_DIR/$CONCEPT.json;
+    "
+fi
 
 echo "Step 2: Place & Route with nextpnr..."
 nextpnr-ice40 \

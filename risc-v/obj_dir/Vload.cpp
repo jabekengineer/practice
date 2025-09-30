@@ -13,6 +13,7 @@ Vload::Vload(VerilatedContext* _vcontextp__, const char* _vcname__)
     , i_rst_n{vlSymsp->TOP.i_rst_n}
     , finished{vlSymsp->TOP.finished}
     , led_done{vlSymsp->TOP.led_done}
+    , debug_state{vlSymsp->TOP.debug_state}
     , result{vlSymsp->TOP.result}
     , rootp{&(vlSymsp->TOP)}
 {

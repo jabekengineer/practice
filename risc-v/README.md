@@ -12,6 +12,21 @@
 `make CONCEPT=concept test`
 6. Deploy to FPGA
 `make CONCEPT=concept fpga`
+a. You need to configure the USB passthrough from Windows Host to WSL to dev container.
+In powershell as admin: `usbipd list` (uses usbipd)[https://github.com/dorssel/usbipd-win]
+- make the device shared
+- `usbipd attach --wsl --busid <BUSID>`
 
+In WSL, `lsusb` and verify that:
+Bus 001 Device 003: ID 0403:6010 Future Technology Devices International, Ltd FT2232C/D/H Dual UART/FIFO IC
+shows up
+
+In devcontainer, double check with scripts/check-usb.sh
+
+
+### LED Control
+pin 11 - green LED is active-low 
+drive 0 → LED ON
+drive 1 → LED OFF
 
 

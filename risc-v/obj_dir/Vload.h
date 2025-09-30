@@ -28,6 +28,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vload VL_NOT_FINAL : public VerilatedModel {
     VL_IN8(&i_rst_n,0,0);
     VL_OUT8(&finished,0,0);
     VL_OUT8(&led_done,0,0);
+    VL_OUT8(&debug_state,2,0);
     VL_OUT(&result,31,0);
 
     // CELLS
