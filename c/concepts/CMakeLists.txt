@@ -1,6 +1,7 @@
 # Standard practice: explicitly list source files instead of globbing
 add_library(concepts STATIC
     hello.c
+    numbers/short_type.c
 )
 
 # Make headers available to other targets

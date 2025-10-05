@@ -7,7 +7,7 @@
 BUILD_DIR = build
 
 # Default target shows standard CMake usage
-all:
+help:
 	@echo "Standard CMake usage:"
 	@echo "  cmake -S . -B $(BUILD_DIR)        # Configure"
 	@echo "  cmake --build $(BUILD_DIR)        # Build"

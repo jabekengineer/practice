@@ -1,0 +1,7 @@
+add_executable(test_short_type test_short_type.cpp)
+target_link_libraries(test_short_type
+PRIVATE
+gtest_main
+concepts
+)
+add_test(NAME test_short_type COMMAND test_short_type)
