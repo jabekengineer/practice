@@ -14,9 +14,12 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
+include(GoogleTest)
 
 add_executable(char_test char_test.cpp)
-target_link_libraries(char_test gtest_main)
-
-include(GoogleTest)
-gtest_discover_tests(char_test)
+target_link_libraries(char_test char_type_lib gtest_main)
+set(GTEST_DISCOVER_TESTS_DISCOVERY_TIMEOUT 30)
+gtest_discover_tests(char_test
+    DISCOVERY_TIMEOUT 30
+    PROPERTIES TIMEOUT 30
+)

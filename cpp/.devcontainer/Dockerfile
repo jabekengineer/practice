@@ -1,7 +1,6 @@
 # cpp/.devcontainer/Dockerfile
 
-# Use VSCode's official C++ devcontainer image (good default)
-FROM mcr.microsoft.com/devcontainers/cpp:ubuntu-22.04
+FROM mcr.microsoft.com/devcontainers/cpp:ubuntu-24.04
 
 # Install extra packages if you want:
 # Clang, CMake, Ninja, Valgrind, GDB, etc.

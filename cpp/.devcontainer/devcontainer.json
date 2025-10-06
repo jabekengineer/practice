@@ -1,16 +1,25 @@
 {
   "name": "C++ Practice DevContainer",
   "dockerFile": "Dockerfile",
-  "settings": {
-    "C_Cpp.default.compilerPath": "/usr/bin/clang++",
-    "C_Cpp.default.intelliSenseMode": "linux-clang-x64",
-    "C_Cpp.default.cppStandard": "c++17",
-    "editor.formatOnSave": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "C_Cpp.default.compilerPath": "/usr/bin/clang++",
+        "C_Cpp.default.intelliSenseMode": "linux-clang-x64",
+        "C_Cpp.default.cppStandard": "c++17",
+        "C_Cpp.formatting": "clangFormat",
+        "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, PointerAlignment: Left, ReferenceAlignment: Left, BreakBeforeBraces: Allman}",
+        "editor.formatOnType": true,
+        "editor.formatOnSave": true
+      },
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
+        "ms-vscode.cpptools-extension-pack",
+        "cschlosser.doxdocgen"
+      ]
+    }
   },
-  "extensions": [
-    "ms-vscode.cpptools",
-    "ms-vscode.cmake-tools",
-    "ms-vscode.cpptools-extension-pack"
-  ],
   "postCreateCommand": "./scripts/build_and_test.sh"
 }

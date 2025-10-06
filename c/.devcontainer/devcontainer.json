@@ -11,7 +11,17 @@
                 "ms-vscode.cpptools",
                 "ms-vscode.cpptools-extension-pack",
                 "ms-vscode.cpptools-themes"
-            ]
+            ],
+            "settings": {
+                "C_Cpp.deafult.compilerPath": "/usr/bin/gcc",
+                "C_Cpp.deafult.intelliSenseMode": "gcc-x64",
+                "C_Cpp.default.cppStandard": "c++17",
+                "C_Cpp.default.cStandard": "c11",
+                "C_Cpp.clang_format_style": " {BasedOnStyle: Google, IndentWidth: 8, PointerAlignment: Left, ReferenceAlignment: Left, ColumnLimit: 80}",
+                "editor.formatOnType": true,
+                "editor.formatOnSave": true,
+                "editor.formatOnPaste": true
+            }
         }
     }
 }
