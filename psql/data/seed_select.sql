@@ -7,9 +7,8 @@ CREATE TABLE IF NOT EXISTS "select".people (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO "select".people (name) 
+INSERT INTO "select".people (name)
 VALUES
     ('Jason'),
     ('Kimya'),
     ('Zach');
-
