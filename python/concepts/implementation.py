@@ -6,7 +6,6 @@ def show_version() -> str:
     v = sys.implementation.version
     return f"{v.major}.{v.minor}.{v.micro}"
 
-
 def main():
     print(f"implementation: {show_implementation()}")
     print(f"version: {show_version()}")

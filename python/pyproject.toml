@@ -3,7 +3,8 @@ name = "python_practice"
 version = "2025.09.10"
 requires-python = ">=3.13.7"
 dependencies = [
-    "nltk"
+    "nltk",
+    "astpretty",
 ]
 
 [project.scripts]

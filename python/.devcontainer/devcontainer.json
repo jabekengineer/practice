@@ -1,5 +1,5 @@
 {
-    "name": "Python Algorithms DevContainer",
+    "name": "Python Practice DevContainer",
     "build": {
         "dockerfile": "Dockerfile",
         "context": "..",
