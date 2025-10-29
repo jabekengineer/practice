@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+  <body>
+    <a href="/">&larr; Home</a>
+    <br />
+    <h3>Mime Types</h3>
+    <ul>
+      <li>
+        <strong>Plain Text (text/plain):</strong>
+        <pre id="txt"></pre>
+        <div id="txt-mime"></div>
+        <br />
+      </li>
+      <li>
+        <strong>JavaScript (application/javascript):</strong>
+        <pre id="js"></pre>
+        <div id="js-mime"></div>
+        <br />
+      </li>
+      <li>
+        <strong>CSS (text/css):</strong>
+        <pre id="css"></pre>
+        <div id="css-mime"></div>
+        <br />
+      </li>
+      <li>
+        <strong>JSON (application/json):</strong>
+        <pre id="json"></pre>
+        <div id="json-mime"></div>
+        <br />
+      </li>
+      <li>
+        <strong>PNG Image (image/png):</strong>
+        <br />
+        <img src="/image.png" alt="PNG demo" />
+        <div id="png-mime"></div>
+        <br />
+      </li>
+      <li>
+        <strong>JSON-LD (application/ld+json):</strong>
+        <pre id="jsonld"></pre>
+        <div id="jsonld-mime"></div>
+        <br />
+      </li>
+    </ul>
+    <script>
+      // Helper to fetch file and show content + MIME type
+      function showFile(id, file) {
+        fetch(file)
+          .then((r) => {
+            document.getElementById(id + '-mime').textContent =
+              'MIME type: ' + r.headers.get('content-type');
+            if (file.endsWith('.png')) {
+              // Don't fetch binary PNG as text
+              return '';
+            }
+            return r.text();
+          })
+          .then((t) => {
+            if (t !== undefined) document.getElementById(id).textContent = t;
+          });
+      }
+      const assets = '/mime';
+      showFile('txt', `${assets}/sample.txt`);
+      showFile('js', `${assets}/script.js`);
+      showFile('js', `${assets}/script.js`);
+      showFile('css', `${assets}/style.css`);
+      showFile('json', `${assets}/data.json`);
+      showFile('png', `${assets}/image.png`);
+      showFile('jsonld', `${assets}/data.jsonld`);
+    </script>
+  </body>
+</html>

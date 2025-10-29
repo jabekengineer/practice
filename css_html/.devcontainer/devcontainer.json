@@ -1,13 +1,24 @@
 {
-    "name": "css-html",
-    "build": {
-        "dockerfile": "Dockerfile"
-    },
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "GitHub.copilot-chat"
-            ]
-        }
+  "name": "css-html",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "workspaceFolder": "/workspaces/css_html",
+  "remoteUser": "node",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.copilot-chat",
+        "ms-playwright.playwright",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ]
     }
+  },
+  "portsAttributes": {
+    "9323": {
+      "label": "playwright-report"
+    }
+  }
 }

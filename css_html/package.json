@@ -1,0 +1,36 @@
+{
+  "name": "css_html_practice",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "vite --config vite.config.js",
+    "dev": "vite --config vite.config.js",
+    "preview": "vite preview",
+    "express": "node server.cjs",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "@playwright/test": "^1.56.1",
+    "@vitejs/plugin-legacy": "^7.2.1",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "jsdom": "^27.0.1",
+    "playwright": "^1.56.1",
+    "prettier": "^3.6.2",
+    "vite": "^7.1.12",
+    "vitest": "^4.0.5"
+  }
+}
