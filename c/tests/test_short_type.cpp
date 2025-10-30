@@ -1,20 +1,21 @@
 #include <gtest/gtest.h>
-extern "C" {
-    #include "numbers/short_type.h"
+extern "C"
+{
+#include "short_type.h"
 }
 
-class SizeTest : public testing::Test {
-public:
+class SizeTest : public testing::Test
+{
+  public:
     const unsigned short int zero = 0;
     const signed short int upper = 32767;
     const signed short int lower = -32768;
 };
 
-TEST_F(SizeTest, ShortIsAtLeast16Bits) {
-    EXPECT_GE(sizeof(zero), 2);
-}
+TEST_F(SizeTest, ShortIsAtLeast16Bits) { EXPECT_GE(sizeof(zero), 2); }
 
-TEST_F(SizeTest, SignedShortOverflowWrapsAround) {
+TEST_F(SizeTest, SignedShortOverflowWrapsAround)
+{
     signed short int max_val = 32767;
     signed short int overflow_result = max_val + 1;
 
@@ -23,7 +24,8 @@ TEST_F(SizeTest, SignedShortOverflowWrapsAround) {
     EXPECT_EQ(overflow_result, -32768);
 }
 
-TEST_F(SizeTest, SignedShortUnderflowWrapsAround) {
+TEST_F(SizeTest, SignedShortUnderflowWrapsAround)
+{
     signed short int min_val = -32768;
     signed short int underflow_result = min_val - 1;
 
@@ -31,7 +33,8 @@ TEST_F(SizeTest, SignedShortUnderflowWrapsAround) {
     EXPECT_EQ(underflow_result, 32767);
 }
 
-TEST_F(SizeTest, UnsignedShortOverflowWrapsToZero) {
+TEST_F(SizeTest, UnsignedShortOverflowWrapsToZero)
+{
     unsigned short int max_val = 65535;
     unsigned short int overflow_result = max_val + 1;
 
@@ -39,7 +42,8 @@ TEST_F(SizeTest, UnsignedShortOverflowWrapsToZero) {
     EXPECT_EQ(overflow_result, 0);
 }
 
-TEST_F(SizeTest, UnsignedShortUnderflowWrapsToMax) {
+TEST_F(SizeTest, UnsignedShortUnderflowWrapsToMax)
+{
     unsigned short int min_val = 0;
     unsigned short int underflow_result = min_val - 1;
 
@@ -47,8 +51,9 @@ TEST_F(SizeTest, UnsignedShortUnderflowWrapsToMax) {
     EXPECT_EQ(underflow_result, 65535);
 }
 
-TEST_F(SizeTest, ExceedContainerWithLargerType) {
-    int too_large_for_short = 100000;  // Exceeds short range
+TEST_F(SizeTest, ExceedContainerWithLargerType)
+{
+    int too_large_for_short = 100000; // Exceeds short range
     signed short int truncated = (signed short int)too_large_for_short;
 
     // When casting, value gets truncated
@@ -56,7 +61,8 @@ TEST_F(SizeTest, ExceedContainerWithLargerType) {
     EXPECT_EQ(truncated, (signed short int)(too_large_for_short & 0xFFFF));
 }
 
-TEST_F(SizeTest, ShortSizeIsSystemDependent) {
+TEST_F(SizeTest, ShortSizeIsSystemDependent)
+{
     // short is guaranteed to be at least 16 bits (2 bytes) by C standard
     EXPECT_GE(sizeof(short), 2);
 
@@ -69,17 +75,19 @@ TEST_F(SizeTest, ShortSizeIsSystemDependent) {
     printf("sizeof(short) on this system: %zu bytes\n", short_size);
 }
 
-TEST_F(SizeTest, ShortVsIntSizeRelationship) {
+TEST_F(SizeTest, ShortVsIntSizeRelationship)
+{
     // C standard guarantees: sizeof(short) <= sizeof(int) <= sizeof(long)
     EXPECT_LE(sizeof(short), sizeof(int));
     EXPECT_LE(sizeof(int), sizeof(long));
 
     // On most systems: short=2, int=4, but this can vary
-    printf("Size relationship - short:%zu int:%zu long:%zu\n",
-           sizeof(short), sizeof(int), sizeof(long));
+    printf("Size relationship - short:%zu int:%zu long:%zu\n", sizeof(short),
+           sizeof(int), sizeof(long));
 }
 
-TEST_F(SizeTest, ShortRangeBasedOnActualSize) {
+TEST_F(SizeTest, ShortRangeBasedOnActualSize)
+{
     // Calculate the actual range based on sizeof(short) for this system
     size_t short_bits = sizeof(short) * 8;
 
@@ -95,7 +103,8 @@ TEST_F(SizeTest, ShortRangeBasedOnActualSize) {
            expected_min, expected_max, short_bits);
 }
 
-TEST_F(SizeTest, PortableShortUsage) {
+TEST_F(SizeTest, PortableShortUsage)
+{
     // Best practice: use sizeof(short) for portable code
     char buffer[sizeof(short) * 3 + 1]; // Enough for any short value as string
 
@@ -106,8 +115,9 @@ TEST_F(SizeTest, PortableShortUsage) {
     EXPECT_STREQ(buffer, "32767"); // Assuming 16-bit short on most systems
 }
 
-class PrintTest : public testing::Test {
-protected:
+class PrintTest : public testing::Test
+{
+  protected:
     char* out;
     size_t bufSize;
     unsigned short int cShort_u;
@@ -120,13 +130,11 @@ protected:
         cShort_s = 1337;
     }
 
-    void TearDown() override
-    {
-        delete[] out;
-    }
+    void TearDown() override { delete[] out; }
 };
 
-TEST_F(PrintTest, IAndDFormatSpecifiersAreTheSame) {
+TEST_F(PrintTest, IAndDFormatSpecifiersAreTheSame)
+{
     format_short_hd(out, bufSize, cShort_s);
     std::string result_hd(out);
 
@@ -135,47 +143,56 @@ TEST_F(PrintTest, IAndDFormatSpecifiersAreTheSame) {
     EXPECT_STREQ(result_hd.c_str(), result_hi.c_str());
 }
 
-TEST_F(PrintTest, HUFormatSpecifier) {
+TEST_F(PrintTest, HUFormatSpecifier)
+{
     format_short_hu(out, bufSize, cShort_u);
     EXPECT_STREQ(out, "1337");
 }
 
-TEST_F(PrintTest, HXFormatSpecifier) {
+TEST_F(PrintTest, HXFormatSpecifier)
+{
     format_short_hx(out, bufSize, cShort_u);
-    EXPECT_STREQ(out, "539");  // 1337 in hex is '539'
+    EXPECT_STREQ(out, "539"); // 1337 in hex is '539'
 }
 
-TEST_F(PrintTest, HUWithLargeValue) {
-    unsigned short int large_val = 65535;  // Max unsigned short
+TEST_F(PrintTest, HUWithLargeValue)
+{
+    unsigned short int large_val = 65535; // Max unsigned short
     format_short_hu(out, bufSize, large_val);
     EXPECT_STREQ(out, "65535");
 }
 
-TEST_F(PrintTest, HXWithLargeValue) {
-    unsigned short int large_val = 65535;  // Max unsigned short
+TEST_F(PrintTest, HXWithLargeValue)
+{
+    unsigned short int large_val = 65535; // Max unsigned short
     format_short_hx(out, bufSize, large_val);
-    EXPECT_STREQ(out, "ffff");  // 65535 in hex is 'ffff'
+    EXPECT_STREQ(out, "ffff"); // 65535 in hex is 'ffff'
 }
 
-TEST_F(PrintTest, HUWithZero) {
+TEST_F(PrintTest, HUWithZero)
+{
     format_short_hu(out, bufSize, 0);
     EXPECT_STREQ(out, "0");
 }
 
-TEST_F(PrintTest, HXWithZero) {
+TEST_F(PrintTest, HXWithZero)
+{
     format_short_hx(out, bufSize, 0);
     EXPECT_STREQ(out, "0");
 }
 
-TEST_F(PrintTest, HXProducesLowerCaseHex) {
-    unsigned short int hex_val = 255;  // Will produce 'ff'
+TEST_F(PrintTest, HXProducesLowerCaseHex)
+{
+    unsigned short int hex_val = 255; // Will produce 'ff'
     format_short_hx(out, bufSize, hex_val);
     EXPECT_STREQ(out, "ff");
 
     // Verify it's lowercase
-    for (char* c = out; *c; ++c) {
-        if (*c >= 'a' && *c <= 'f') {
-            EXPECT_GE(*c, 'a');  // Should be lowercase
+    for (char* c = out; *c; ++c)
+    {
+        if (*c >= 'a' && *c <= 'f')
+        {
+            EXPECT_GE(*c, 'a'); // Should be lowercase
             EXPECT_LE(*c, 'f');
         }
     }

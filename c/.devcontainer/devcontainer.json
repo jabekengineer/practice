@@ -13,14 +13,29 @@
                 "ms-vscode.cpptools-themes"
             ],
             "settings": {
-                "C_Cpp.deafult.compilerPath": "/usr/bin/gcc",
-                "C_Cpp.deafult.intelliSenseMode": "gcc-x64",
-                "C_Cpp.default.cppStandard": "c++17",
-                "C_Cpp.default.cStandard": "c11",
-                "C_Cpp.clang_format_style": " {BasedOnStyle: Google, IndentWidth: 8, PointerAlignment: Left, ReferenceAlignment: Left, ColumnLimit: 80}",
+                "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+                "C_Cpp.default.forcedInclude": [
+                    "gcc-x64"
+                ],
+                "C_Cpp.default.cppStandard": "c++23",
+                "C_Cpp.default.cStandard": "c23",
+                "C_Cpp.formatting": "clangFormat",
+                "C_Cpp.clang_format_path": "/usr/bin/clang-format",
+                "C_Cpp.clang_format_style": "file",
                 "editor.formatOnType": true,
                 "editor.formatOnSave": true,
-                "editor.formatOnPaste": true
+                "editor.formatOnPaste": true,
+                "editor.defaultFormatter": "ms-vscode.cpptools",
+                "[c]": {
+                    "editor.defaultFormatter": "ms-vscode.cpptools"
+                },
+                "[cpp]": {
+                    "editor.defaultFormatter": "ms-vscode.cpptools"
+                },
+                "files.associations": {
+                    "*.c": "c",
+                    "*.h": "c"
+                }
             }
         }
     }

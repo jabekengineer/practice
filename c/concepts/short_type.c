@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include "numbers/short_type.h"
+#include "short_type.h"
 #include <limits.h>
+#include <stdio.h>
 
 void format_short_hi(char* buf, size_t bufsize, signed short int val)
 {

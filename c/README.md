@@ -2,7 +2,30 @@
 
 ---
 
-# C Char Type Learning Path
+`vendor-arch-os-eabi`
+gcc-arm-linux-gnueabi
+- GNU Compiler Collection
+- ARM target architecture
+- Linux Operating system (my latest Ubuntu)
+- Embedded Application Binary Interface: by standard gnu c library (glibc) for 32-bit ARM Linux systems, like our amp Layerscape 1021A Armv7
+
+`uname -a`
+You are cross compiling from your WSL2 linux x86_64 system for an ArmV7 linux target.
+
+cmake --build
+ctest --test-dir build
+
+# C Basic Types
+
+## 1 byte - char
+
+- checking your target's representation of char
+- signed char range is -128 to 127
+- unsigned char is
+
+
+## Short
+
 
 ## Phase 1: Core Types & Platform Behavior
 - [ ] Determine `signed char` range and verify it's always -128-127
