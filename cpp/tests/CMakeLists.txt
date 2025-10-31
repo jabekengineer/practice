@@ -1,25 +1,43 @@
 # cpp/tests/CMakeLists.txt
+add_executable(test_char test_char.cpp)
 
-# Download GoogleTest if needed
-if(POLICY CMP0135)
-  cmake_policy(SET CMP0135 NEW)
-endif()
-include(FetchContent)
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/refs/heads/main.zip
+target_link_libraries(test_char
+char
+GTest::gtest
+GTest::gtest_main
 )
-# For Windows: prevent overriding parent project flags
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
 
-enable_testing()
-include(GoogleTest)
-
-add_executable(char_test char_test.cpp)
-target_link_libraries(char_test char_type_lib gtest_main)
-set(GTEST_DISCOVER_TESTS_DISCOVERY_TIMEOUT 30)
-gtest_discover_tests(char_test
-    DISCOVERY_TIMEOUT 30
-    PROPERTIES TIMEOUT 30
+add_test(NAME test_char COMMAND test_char)
+set_tests_properties(test_char PROPERTIES
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
+
+
+add_executable(test_int test_int.cc)
+
+# Find LLVM
+find_package(LLVM REQUIRED CONFIG)
+message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
+
+# Find zstd separately to avoid CMake target issues
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(ZSTD REQUIRED libzstd)
+
+# Link LLVM libraries
+llvm_map_components_to_libnames(llvm_libs core)
+
+target_link_libraries(test_int
+    int
+    GTest::gtest
+    GTest::gtest_main
+    ${llvm_libs}
+    ${ZSTD_LIBRARIES}
+)
+
+# LLVM compile definitions and include directories
+target_compile_definitions(test_int PRIVATE ${LLVM_DEFINITIONS})
+target_include_directories(test_int PRIVATE ${LLVM_INCLUDE_DIRS})
+target_include_directories(test_int PRIVATE ${ZSTD_INCLUDE_DIRS})
+target_compile_options(test_int PRIVATE ${ZSTD_CFLAGS_OTHER})
+
+add_test(NAME test_int COMMAND test_int)

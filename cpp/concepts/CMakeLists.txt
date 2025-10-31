@@ -1,4 +1,5 @@
-add_library(char_type_lib char_type.cpp)
-add_executable(char_type_demo char_type.cpp)
-target_compile_definitions(char_type_demo PRIVATE BUILD_EXECUTABLE)
+add_library(char STATIC char.cpp)
+target_include_directories(char PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
+add_library(int STATIC int.cpp)
+target_include_directories(int PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

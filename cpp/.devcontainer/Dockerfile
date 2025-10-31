@@ -2,16 +2,28 @@
 
 FROM mcr.microsoft.com/devcontainers/cpp:ubuntu-24.04
 
-# Install extra packages if you want:
-# Clang, CMake, Ninja, Valgrind, GDB, etc.
+# Enhanced toolchain for learning loop
 RUN apt-get update && \
     apt-get install -y \
-      clang \
-      cmake \
-      ninja-build \
-      gdb \
-      valgrind \
-      lcov
+    clang \
+    llvm \
+    cmake \
+    gdb \
+    valgrind \
+    lcov \
+    gcc \
+    llvm-dev \
+    libzstd-dev \
+    tree \
+    less \
+    libgtest-dev \
+    libgmock-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# If you want GoogleTest system-wide, you could build/install it here,
-# but your CMake FetchContent is good enough for now.
+# Build GoogleTest properly
+RUN cd /usr/src/googletest && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make && \
+    make install

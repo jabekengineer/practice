@@ -6,23 +6,23 @@
 #include <typeinfo>
 #include <utility>
 #include <vector>
-/** Basic Types & Ranges */
+
+/// @returns pair with 'in signed char range?' and 'input cast to signed char'
 const std::pair<bool, signed char> isInRange(const signed char val);
+
 const std::pair<bool, unsigned char> isInRangeU(const unsigned char val);
 const std::bitset<8U> binaryFromChar(const char val);
 const size_t sizeOfChar(const char val);
 
 /** Standard Library Char stuff */
-template <typename CharType>
-const CharType getMinChar()
+template <typename CharType> const CharType getMinChar()
 {
-  return std::numeric_limits<CharType>::min();
+    return std::numeric_limits<CharType>::min();
 }
 
-template <typename CharType>
-const CharType getMaxChar()
+template <typename CharType> const CharType getMaxChar()
 {
-  return std::numeric_limits<CharType>::max();
+    return std::numeric_limits<CharType>::max();
 }
 
 const std::vector<int> getCLimits();
