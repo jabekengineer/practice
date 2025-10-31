@@ -1,0 +1,6 @@
+[submodule "cpp/copilot-prompts"]
+	path = cpp/.github/instructions/copilot-prompts
+	url = git@github.com:jabekengineer/prompts.git
+[submodule "cpp/.github/instructions"]
+	path = cpp/.github/instructions
+	url = git@github.com:jabekengineer/prompts.git
