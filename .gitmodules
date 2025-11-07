@@ -4,3 +4,7 @@
 [submodule "cpp/.github/instructions"]
 	path = cpp/.github/instructions
 	url = git@github.com:jabekengineer/prompts.git
+[submodule "bash/.github/instructions"]
+	path = bash/.github/instructions
+	url = git@github.com:jabekengineer/prompts.git
+	branch = main

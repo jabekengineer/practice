@@ -1,0 +1,5 @@
+shell=bash
+severity=style
+external-sources=true
+source=concepts/*.sh
+source=tests/*.sh

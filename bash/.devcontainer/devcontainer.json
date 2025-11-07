@@ -1,0 +1,25 @@
+{
+  "name": "bash-toolchain",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {},
+  "customizations": {
+    "vscode": {
+        "settings": {
+            "github.copilot.chat.codeGeneration.useInstructionFiles": true
+        },
+        "extensions": [
+          "timonwong.shellcheck",
+          "foxundermoon.shell-format",
+          "mads-hartmann.bash-ide-vscode",
+          "EditorConfig.EditorConfig",
+          "GitHub.copilot",
+          "GitHub.copilot-chat",
+          "jetmartin.bats"
+        ]
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "remoteUser": "vscode"
+}

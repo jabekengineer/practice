@@ -1,0 +1,14 @@
+{
+  "files.eol": "\n",
+  "editor.tabSize": 4,
+  "editor.insertSpaces": false,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "foxundermoon.shell-format",
+  // ShellCheck
+  "shellcheck.enable": true,
+  // shfmt flags:
+  // -i 2  => 2-space indent
+  // -ci   => indent switch/case
+  // -bn   => binary ops at line start (more readable diffs)
+  "shellformat.flag": "-i 2 -ci -bn"
+}
