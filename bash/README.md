@@ -6,6 +6,18 @@ Specifically focusing on the linux command line, practice one concept at a time.
 2. Write the tests.
 3. Write the concept file with demo.
 
+# Bash learning loop
+
+Specifically focusing on the linux command line, practice one concept at a time.
+
+1. Plan the learning.
+2. Write the tests.
+3. Write the concept file with demo.
+
+## Tools
+
+### VS Code Bash Hover Documentation
+The dev container includes the `bash-ide-vscode` extension with explainshell integration. Hover over shell commands and flags for instant documentation powered by explainshell.com.
 
 ## Navigating the shell
 [*] identify the shell

@@ -1,0 +1,6 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "MIME demo data",
+  "description": "JSON-LD served as application/ld+json for demo"
+}
